@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { UserService } from './user.service';
+import { CommonModule } from '@angular/common';
 
 interface User {
   id: number;
@@ -10,21 +12,28 @@ interface User {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Hello World Angular App';
   
-  // Hardcoded data for demonstration
-  users: User[] = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
-    { id: 3, name: 'Mike Johnson', email: 'mike@example.com', role: 'Editor' }
-  ];
+  users: User[] = [];
 
   currentDate = new Date();
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.userService.getUsers().subscribe(data => {
+      this.users = data;
+    });
+  }
 
   onUserClick(user: User) {
     alert(`Selected user: ${user.name} (${user.role})`);
