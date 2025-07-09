@@ -29,6 +29,12 @@
       "name": "James ",
       "email": "Heldridge",
       "role": "Product Designer "
+    },
+    {
+      "id": "ca15",
+      "name": "James",
+      "email": "jamesheldridge@unomaha.edu",
+      "role": "Product Managaer"
     }
   ]
 }
